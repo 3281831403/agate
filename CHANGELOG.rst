@@ -1,6 +1,8 @@
 1.14.3 - Unreleased
 -------------------
 
+- feat: :meth:`.TableSet.to_csv` writes a manifest recording the keys, key name, key type and column types of the set, so :meth:`.TableSet.from_csv` can restore them exactly. Keys that are null, non-strings or contain path separators now round-trip, and columns are no longer re-inferred (which broke localized numbers, single-row tables and all-null columns). Directories without a manifest are still read using the legacy filename-based behavior.
+- fix: :meth:`.TableSet.from_csv` no longer mangles keys derived from filenames (e.g. ``scores.csv`` became ``score`` and ``c.csv`` became an empty string).
 - feat: :class:`.Median`, :class:`.Percentiles`, :class:`.Quartiles`, :class:`.Quintiles`, :class:`.Deciles` and :class:`.IQR` can be applied to :class:`.TimeDelta` columns, like :class:`.Sum` and :class:`.Mean`.
 - fix: :meth:`.Table.distinct` now deduplicates rows when ``key`` is a sequence of column names.
 - fix: :class:`.Rank` ranks null values last when ``reverse=True``.
